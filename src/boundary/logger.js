@@ -4,7 +4,7 @@ import CreateWarnLog from '../control/create-warn-log';
 import CreateErrorLog from '../control/create-error-log';
 import GetLoggerByServiceName from '../control/get-logger-by-service-nane';
 import GetLoggerByServiceAndDateTime from '../control/get-logger-by-service-and-date-time';
-
+import RemoveLoggerByServiceTime from '../control/remove-logger-by-service-time';
 export default class LoggerService {
     logInfo(serviceName, message, callback) {
         new CreateInfoLog(serviceName, message, callback);
@@ -28,5 +28,9 @@ export default class LoggerService {
 
     getLoggerByTime(serviceName, dateFormat, paginate, callback) {
         new GetLoggerByServiceAndDateTime(serviceName, dateFormat, paginate, callback);
+    }
+    
+    removeLoggerByTime(serviceName, dateFormat, callback) {
+        new RemoveLoggerByServiceTime(serviceName, dateFormat, callback);
     }
 }

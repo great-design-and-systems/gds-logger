@@ -14,6 +14,19 @@ export default class LoggerResource {
             domain.addGet('getLoggerByTime', 'http://' + req.headers.host + API + ':serviceName/:date');
             res.status(200).send(domain);
         });
+
+        app.delete(API + ':serviceName/:date', (req, res) => {
+            loggerService.removeLoggerByTime(req.params.serviceName, req.params.date, (err) => {
+                if (err) {
+                    res.status(500).send(new GDSDomainDTO('ERROR_MESSAGE',
+                        err.message
+                    ))
+                } else {
+                    res.status(200).send(new GDSDomainDTO('DELETE', 'Logs have been removed'));
+                }
+            });
+        });
+
         app.post(API + ':serviceName/create-info', (req, res) => {
             const serviceName = req.params.serviceName;
             loggerService.logInfo(serviceName, req.body.message, err => {
