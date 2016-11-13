@@ -8,7 +8,8 @@
     "dev": "nodemon --exec babel-node src/index.js",
     "prestart": "babel src --out-dir dist",
     "start": "node dist/index.js",
-    "test": "npm run prestart --ignore /dist/ && babel src-test --out-dir test --ignore /test/ && mocha ."
+    "test": "npm run prestart --ignore /dist/ && babel src-test --out-dir test --ignore /test/ && mocha .",
+    "container-start": "/bin/bash /app/scripts/start.sh"
   },
   "keywords": [],
   "author": "",
