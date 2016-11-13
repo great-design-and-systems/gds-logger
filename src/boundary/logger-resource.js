@@ -4,7 +4,16 @@ const API = process.env.API_NAME || '/api/logger/';
 export default class LoggerResource {
     constructor(app) {
         const loggerService = new LoggerService();
-
+        app.get('/', (req, res) => {
+            const domain = new GDSDomainDTO();
+            domain.addPost('createInfo', 'http://' + req.headers.host + API + ':serviceName/create-info');
+            domain.addPost('createError', 'http://' + req.headers.host + API + ':serviceName/create-error');
+            domain.addPost('createWarn', 'http://' + req.headers.host + API + ':serviceName/create-warn');
+            domain.addPost('createDebug', 'http://' + req.headers.host + API + ':serviceName/create-debug');
+            domain.addGet('getLogger', 'http://' + req.headers.host + API + ':serviceName');
+            domain.addGet('getLoggerByTime', 'http://' + req.headers.host + API + ':serviceName/:date');
+            res.status(200).send(domain);
+        });
         app.post(API + ':serviceName/create-info', (req, res) => {
             const serviceName = req.params.serviceName;
             loggerService.logInfo(serviceName, req.body.message, err => {
